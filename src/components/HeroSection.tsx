@@ -73,7 +73,7 @@ const HeroSection = () => {
               variant="outline" 
               size="xl"
               onClick={() => scrollToSection("#products")}
-              className="border-background/30 text-background hover:bg-background/10 hover:text-background"
+              className="border-background/30 text-aponi hover:bg-background/10 hover:text-background"
             >
               View Our Products
             </Button>

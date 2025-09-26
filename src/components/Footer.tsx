@@ -175,9 +175,17 @@ const Footer = () => {
               </a>
             </div>
             
-            <div className="text-sm text-earth-foreground/80">
-              Made with ❤️ for global trade
-            </div>
+            <div className="text-center mt-6">
+              <span className="text-xs text-earth-foreground/80">
+                Web design by{" "}
+                <a
+                  href="https://mynsit.com/" target="_blank" rel="noopener noreferrer"
+                  className="text-earth-foreground/50 hover:text-primary transition-smooth"
+                >
+                  MYNSIT
+                </a>
+              </span>
+        </div>
           </div>
         </div>
       </div>

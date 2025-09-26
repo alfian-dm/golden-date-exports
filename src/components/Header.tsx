@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logoKurma from "@/assets/premium-kurma-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,17 +10,16 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      // trigger after 50% of viewport height
+      setIsScrolled(window.scrollY > window.innerHeight * 0.1);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#home" },
     { label: "About", href: "#about" },
     { label: "Products", href: "#products" },
-    { label: "Why Choose Us", href: "#why-choose" },
     { label: "Export Markets", href: "#markets" },
     { label: "Contact", href: "#contact" },
   ];
@@ -33,11 +33,11 @@ const Header = () => {
   };
 
   return (
-    <header 
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-smooth",
-        isScrolled 
-          ? "bg-background/95 backdrop-blur-md shadow-medium" 
+        "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
+        isScrolled
+          ? "bg-background/95 backdrop-blur-md shadow"
           : "bg-transparent"
       )}
     >
@@ -45,14 +45,28 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full gradient-hero flex items-center justify-center">
-              <span className="text-lg lg:text-xl font-bold text-foreground">K</span>
+           <div className="w-14 h-14 lg:w-20 lg:h-20">
+              <img
+                src={logoKurma}
+                alt="Premium Kurma Logo"
+                className="w-full h-full object-contain rounded-full"
+              />
             </div>
             <div>
-              <h1 className="text-lg lg:text-xl font-heading font-bold text-foreground">
+              <h1
+                className={cn(
+                  "text-lg lg:text-xl font-heading font-bold transition-colors duration-300",
+                  isScrolled ? "text-[#6b4226]" : "text-white"
+                )}
+              >
                 Premium Kurma
               </h1>
-              <p className="text-xs text-muted-foreground hidden sm:block">
+              <p
+                className={cn(
+                  "text-xs hidden sm:block transition-colors duration-300",
+                  isScrolled ? "text-muted-foreground" : "text-white/80"
+                )}
+              >
                 Exports Worldwide
               </p>
             </div>
@@ -64,7 +78,10 @@ const Header = () => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-primary transition-smooth font-medium"
+                className={cn(
+                  "font-medium transition-colors duration-300",
+                  isScrolled ? "text-[#6b4226] hover:text-primary" : "text-white hover:text-pink-200"
+                )}
               >
                 {item.label}
               </button>
@@ -73,7 +90,12 @@ const Header = () => {
 
           {/* Contact Info & CTA */}
           <div className="hidden lg:flex items-center space-x-4">
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+            <div
+              className={cn(
+                "flex items-center space-x-4 text-sm transition-colors duration-300",
+                isScrolled ? "text-muted-foreground" : "text-white/90"
+              )}
+            >
               <div className="flex items-center space-x-1">
                 <Phone className="w-4 h-4" />
                 <span>+1 (555) 0123</span>
@@ -83,8 +105,8 @@ const Header = () => {
                 <span>info@kurmaexports.com</span>
               </div>
             </div>
-            <Button 
-              variant="hero" 
+            <Button
+              variant="hero"
               size="sm"
               onClick={() => scrollToSection("#contact")}
             >
@@ -95,7 +117,10 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-secondary transition-smooth"
+            className={cn(
+              "lg:hidden p-2 rounded-lg transition-colors duration-300",
+              isScrolled ? "text-[#6b4226]" : "text-white"
+            )}
           >
             {isMenuOpen ? (
               <X className="w-6 h-6" />
@@ -104,33 +129,6 @@ const Header = () => {
             )}
           </button>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <nav className="py-4 space-y-3 bg-card/95 backdrop-blur-md rounded-lg mt-2 shadow-medium">
-              {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-secondary transition-smooth"
-                >
-                  {item.label}
-                </button>
-              ))}
-              <div className="px-4 pt-3 border-t border-border">
-                <Button 
-                  variant="hero" 
-                  size="sm" 
-                  className="w-full"
-                  onClick={() => scrollToSection("#contact")}
-                >
-                  Get Quote
-                </Button>
-              </div>
-            </nav>
-          </div>
-        )}
       </div>
     </header>
   );

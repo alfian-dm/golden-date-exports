@@ -11,6 +11,7 @@ All colors MUST be HSL.
     /* Base colors - warm cream and rich dark tones */
     --background: 35 45% 97%;
     --foreground: 25 15% 15%;
+    --aponi: 0 0% 0%;
 
     /* Card and surface colors */
     --card: 35 50% 98%;
